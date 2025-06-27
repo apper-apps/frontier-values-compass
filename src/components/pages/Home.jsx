@@ -205,14 +205,14 @@ function Home() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-primary to-primary/80 py-16">
+{/* CTA Section */}
+      <div className="bg-gradient-to-br from-surface-50 to-surface-100 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div variants={itemVariants}>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
               Ready to Discover Your Values?
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Take the first step towards a more intentional, values-driven life. 
               The journey to self-discovery starts now.
             </p>
