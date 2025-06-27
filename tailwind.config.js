@@ -4,12 +4,13 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
+theme: {
     extend: {
       colors: {
-        primary: '#2C5530',
+        primary: '#6ab2e7',
         secondary: '#8B7355',
         accent: '#D4A574',
+        highlight: '#f5c826',
         surface: {
           50: '#FDFBF7',
           100: '#F5F0E8',
