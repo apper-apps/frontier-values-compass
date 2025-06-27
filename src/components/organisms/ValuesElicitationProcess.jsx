@@ -40,7 +40,7 @@ const ValuesElicitationProcess = () => {
 // Step 6 complex equivalents
   const [currentValueIndex, setCurrentValueIndex] = useState(0)
   const [equivalentQuestions] = useState([
-    'How do you know when you're experiencing this value?',
+    'How do you know when you\'re experiencing this value?',
     'What does this value mean to you?',
     'How do you know when someone respects this value in you?',
     'What is your evidence procedure for this value?',
