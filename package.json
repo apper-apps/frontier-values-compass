@@ -22,7 +22,12 @@
     "react-router-dom": "6.15.0",
     "react-toastify": "11.0.5",
     "react-beautiful-dnd": "13.1.1",
-    "react-speech-kit": "3.0.1"
+"react-speech-kit": "3.0.1"
+  },
+  "peerDependenciesOverride": {
+    "react-speech-kit": {
+      "react": "^18.2.0"
+    }
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
