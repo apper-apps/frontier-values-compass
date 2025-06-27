@@ -92,10 +92,10 @@ function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button
+<Button
                 onClick={handleGetStarted}
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-[#f5c826] hover:bg-[#f5c826]/90 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <ApperIcon name="Play" size={20} className="mr-2" />
                 Get Started
@@ -220,10 +220,10 @@ function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button
+<Button
                 onClick={handleGetStarted}
                 size="lg"
-                className="bg-white text-primary hover:bg-surface-50 px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-[#f5c826] text-white hover:bg-[#f5c826]/90 px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <ApperIcon name="ArrowRight" size={20} className="mr-2" />
                 Start Your Values Journey
