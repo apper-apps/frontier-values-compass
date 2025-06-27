@@ -385,8 +385,8 @@ const ValuesElicitationProcess = () => {
     setSession(updatedSession)
   }
 
-  const nextStep = async () => {
-    const newStep = Math.min(session.currentStep + 1, 6)
+const nextStep = async () => {
+    const newStep = Math.min(session.currentStep + 1, 4)
     await sessionService.updateStep(newStep)
     
     const updatedSession = await sessionService.getCurrentSession()
@@ -396,12 +396,9 @@ const ValuesElicitationProcess = () => {
     if (newStep === 2) initializeStep2()
     if (newStep === 3) initializeStep3()
     if (newStep === 4) setRankingMethod('drag')
-    if (newStep === 5) initializeStep5()
-    if (newStep === 6) initializeStep6()
     
     setCurrentQuestion(getQuestionForStep(newStep))
   }
-
   const initializeStep5 = () => {
     if (session.values.length >= 2) {
       setComparisonPair([
@@ -473,11 +470,11 @@ const ValuesElicitationProcess = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Progress Sidebar */}
+{/* Progress Sidebar */}
             <div className="lg:col-span-1">
               <StepIndicator 
                 currentStep={session?.currentStep || 1} 
-                totalSteps={6}
+                totalSteps={4}
                 className="sticky top-8"
               />
             </div>
@@ -801,7 +798,7 @@ const ValuesElicitationProcess = () => {
                 </div>
                 
                 <div className="flex gap-3">
-                  {session?.currentStep === 6 && currentValueIndex >= session.values.length - 1 && (
+{session?.currentStep === 4 && currentValueIndex >= session.values.length - 1 && (
                     <Button
                       onClick={() => setShowExportModal(true)}
                       variant="accent"
@@ -811,7 +808,7 @@ const ValuesElicitationProcess = () => {
                     </Button>
                   )}
                   
-                  {session?.currentStep < 6 && canProceedToNextStep() && (
+{session?.currentStep < 4 && canProceedToNextStep() && (
                     <Button
                       onClick={nextStep}
                       icon="ArrowRight"

@@ -5,10 +5,10 @@ import Button from '@/components/atoms/Button'
 import ApperIcon from '@/components/ApperIcon'
 
 function Home() {
-  const navigate = useNavigate()
+const navigate = useNavigate()
 
   const handleGetStarted = () => {
-    navigate('/process')
+    navigate('/questionnaire')
   }
 
   const benefits = [

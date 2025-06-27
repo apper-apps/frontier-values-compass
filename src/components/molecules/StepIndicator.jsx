@@ -1,14 +1,12 @@
 import { motion } from 'framer-motion'
 import ApperIcon from '@/components/ApperIcon'
 
-const StepIndicator = ({ currentStep, totalSteps = 6, className = '' }) => {
+const StepIndicator = ({ currentStep, totalSteps = 4, className = '' }) => {
   const steps = [
-    { number: 1, title: 'Standard Elicitation', icon: 'MessageSquare' },
-    { number: 2, title: 'Motivation Strategy', icon: 'Zap' },
-    { number: 3, title: 'Threshold Values', icon: 'Target' },
-    { number: 4, title: 'Ranking', icon: 'ArrowUpDown' },
-    { number: 5, title: 'Validation', icon: 'CheckCircle' },
-    { number: 6, title: 'Complex Equivalents', icon: 'Layers' }
+    { number: 1, title: 'Life Areas Exploration', icon: 'MessageSquare' },
+    { number: 2, title: 'Peak Moments Discovery', icon: 'Zap' },
+    { number: 3, title: 'Deal-Breakers and Must-Haves', icon: 'Target' },
+    { number: 4, title: 'What Matters Most', icon: 'ArrowUpDown' }
   ]
 
   return (
