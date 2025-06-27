@@ -108,14 +108,13 @@ const ValuesElicitationProcess = () => {
     setCurrentEquivalentQuestion(0)
   }
 
-  const getQuestionForStep = (step) => {
+const getQuestionForStep = (step) => {
     switch (step) {
       case 1:
-        if (currentContext < contexts.length) {
+        if (currentContext >= 0 && currentContext < contexts.length) {
           return `What's important to you about ${contexts[currentContext]}?`
         }
         return "Let's review your responses..."
-      
       case 2:
         switch (motivationStage) {
           case 'initial':
@@ -233,17 +232,14 @@ const ValuesElicitationProcess = () => {
       setCurrentQuestion(`That's interesting. Can you tell me more about why ${contexts[currentContext].toLowerCase()} is important to you?`)
       return
     }
-
-    // Move to next context
+// Move to next context
     const nextContext = currentContext + 1
     if (nextContext < contexts.length) {
       setCurrentContext(nextContext)
-      setCurrentQuestion(`What's important to you about ${contexts[nextContext]}?`)
     } else {
       // All contexts covered, ready for next step
-      setCurrentQuestion("Great! Let's move on to explore your motivation strategies.")
+      setCurrentContext(contexts.length) // Set beyond array length to indicate completion
     }
-
     // Reload session to get updated values
     const updatedSession = await sessionService.getCurrentSession()
     setSession(updatedSession)

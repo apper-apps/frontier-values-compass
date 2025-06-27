@@ -1,7 +1,7 @@
 import { useState, forwardRef, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit'
 import ApperIcon from '@/components/ApperIcon'
-
 const TextArea = forwardRef(({ 
   label,
   error,
@@ -14,12 +14,35 @@ const TextArea = forwardRef(({
   className = '',
   ...props 
 }, ref) => {
-  const [isFocused, setIsFocused] = useState(false)
+const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(props.value || props.defaultValue || false)
   const [charCount, setCharCount] = useState(0)
+  const [isListening, setIsListening] = useState(false)
+  const [speechError, setSpeechError] = useState('')
   const textareaRef = useRef(null)
   const combinedRef = ref || textareaRef
 
+  const { listen, listening, stop, supported } = useSpeechRecognition({
+    onResult: (result) => {
+      const currentValue = props.value || ''
+      const newValue = currentValue + (currentValue ? ' ' : '') + result
+      
+      // Create synthetic event to trigger onChange
+      const syntheticEvent = {
+        target: { value: newValue }
+      }
+      
+      handleChange(syntheticEvent)
+      setSpeechError('')
+    },
+    onError: (error) => {
+      setSpeechError('Speech recognition failed. Please try again.')
+      setIsListening(false)
+    },
+    onEnd: () => {
+      setIsListening(false)
+    }
+  })
   const handleFocus = (e) => {
     setIsFocused(true)
     props.onFocus?.(e)
@@ -31,12 +54,12 @@ const TextArea = forwardRef(({
     props.onBlur?.(e)
   }
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
     const value = e.target.value
     setHasValue(value.length > 0)
     setCharCount(value.length)
     
-    if (autoExpand) {
+    if (autoExpand && e.target) {
       const textarea = e.target
       textarea.style.height = 'auto'
       const scrollHeight = textarea.scrollHeight
@@ -47,6 +70,23 @@ const TextArea = forwardRef(({
     
     props.onChange?.(e)
   }
+
+  const handleVoiceClick = () => {
+    if (listening) {
+      stop()
+      setIsListening(false)
+    } else if (supported) {
+      setSpeechError('')
+      setIsListening(true)
+      listen({ continuous: true, interimResults: false })
+    } else {
+      setSpeechError('Speech recognition is not supported in your browser')
+    }
+  }
+
+  useEffect(() => {
+    setIsListening(listening)
+  }, [listening])
 
   useEffect(() => {
     if (props.value !== undefined) {
@@ -92,6 +132,30 @@ const TextArea = forwardRef(({
             {label}
           </motion.label>
         )}
+{/* Voice Input Button */}
+        <div className="absolute right-3 top-3 flex gap-2">
+          {supported && (
+            <motion.button
+              type="button"
+              onClick={handleVoiceClick}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`
+                p-2 rounded-full transition-all duration-200
+                ${isListening 
+                  ? 'bg-error text-white shadow-lg animate-pulse' 
+                  : 'bg-surface-100 text-secondary hover:bg-surface-200 hover:text-primary'
+                }
+              `}
+              title={isListening ? 'Stop recording' : 'Start voice input'}
+            >
+              <ApperIcon 
+                name={isListening ? "MicOff" : "Mic"} 
+                size={16} 
+              />
+            </motion.button>
+          )}
+        </div>
       </div>
       
       <div className="flex justify-between items-start mt-1">
@@ -107,7 +171,29 @@ const TextArea = forwardRef(({
             </motion.p>
           )}
           
-          {hint && !error && (
+          {speechError && (
+            <motion.p
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm text-warning flex items-center gap-1"
+            >
+              <ApperIcon name="AlertTriangle" size={14} />
+              {speechError}
+            </motion.p>
+          )}
+          
+          {isListening && (
+            <motion.p
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm text-primary flex items-center gap-1"
+            >
+              <ApperIcon name="Mic" size={14} />
+              Listening... Speak now
+            </motion.p>
+          )}
+          
+          {hint && !error && !speechError && !isListening && (
             <p className="text-sm text-secondary">
               {hint}
             </p>
