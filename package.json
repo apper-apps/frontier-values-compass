@@ -24,9 +24,9 @@
     "react-beautiful-dnd": "13.1.1",
 "react-speech-kit": "3.0.1"
   },
-  "peerDependenciesOverride": {
+"peerDependenciesOverride": {
     "react-speech-kit": {
-      "react": "^18.2.0"
+      "react": ">=16.8.0 <19.0.0"
     }
   },
   "devDependencies": {
